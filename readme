@@ -1,0 +1,28 @@
+三元组形式的多线程矩阵相乘算法
+dikejiang@yeah.net
+
+思路
+矩阵A(MxK） * 矩阵B(KxN) = 矩阵C(MxN)，其中
+C(m,n) = 对k求和A(m,k)*B(k,n)
+观察可知A的第k列只和B的第k行相乘，不同的k值之间的矩阵操作相互独立，因此可以多线程并行处理，最终累计即可
+
+本算法适合于
+K相对较小，A、B矩阵稀疏的情况
+
+操作步骤：
+打包：
+mvn clean package
+
+运行例子（进入到jar包目录）：
+参数1：第一个矩阵三元组路径
+参数2：第二个矩阵三元组路径
+参数3：结果三元组保存路径
+java -classpath triplematrixmultiply-1.0-SNAPSHOT.jar org.jiangyu.triplematrixmultiply.TripleMatrixMultiplyExample ./firstmatrix ./secondmatrix ./resultmatrix
+
+性能测试
+参数1：K
+参数2：M
+参数3：矩阵A的稀疏度
+参数4：N
+参数5：矩阵B的稀疏度
+java -classpath triplematrixmultiply-1.0-SNAPSHOT.jar org.jiangyu.triplematrixmultiply.PerformanceTest 10 10000 0.05 20000 0.03
